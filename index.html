@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f3ed">
+<title>Who Gets Rich?</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Manrope:wght@400;500;600;650;700;750;800&display=swap');
+:root{--bg:#f5f3ed;--paper:#fcfbf7;--ink:#223c33;--muted:#788078;--green:#335d48;--line:#dedfd5;--lime:#d6ed98;--orange:#b67750}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',Arial,sans-serif;font-size:14px}button,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:wait}button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #ba8337;outline-offset:3px}button{transition:background .15s,color .15s;border:1px solid var(--line);color:var(--ink);background:transparent}button:hover{background:#e9eddf}a{color:inherit;text-decoration:none}[hidden]{display:none!important}.site-header{max-width:1320px;margin:auto;padding:27px 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{font-size:13px;font-weight:750;letter-spacing:1.8px;display:flex;align-items:center;gap:12px}.brand-mark{display:grid;place-items:center;width:29px;height:29px;background:var(--ink);color:var(--bg);font-size:24px;border-radius:50%;font-weight:400}.quiet{border-radius:7px;padding:10px 15px;background:transparent;font-size:12px;font-weight:600}main{max-width:1320px;padding:0 48px;margin:auto}.intro{padding:48px 0 36px;max-width:52rem}.intro-lead{line-height:1.7;color:#758074;margin:0 0 12px;font-size:15px}.intro-note{line-height:1.6;color:var(--muted);margin:0;font-size:13px}.eyebrow{font-size:10px;font-weight:700;letter-spacing:1.8px;margin:0 0 14px}.intro h1{font-family:Manrope,Arial,sans-serif;font-size:clamp(25px,3vw,38px);letter-spacing:-1.5px;line-height:1.2;margin:0 0 14px;font-weight:650}.workspace{display:grid;grid-template-columns:minmax(0,1fr) 302px;gap:30px;align-items:start}.stage{aspect-ratio:1;container-type:inline-size;background:var(--paper);border:1px solid #d8dccf;border-radius:14px;padding:3.6cqw;box-shadow:0 5px 16px #31452705;display:flex;flex-direction:column;overflow:hidden;position:relative}.workspace>.stage{padding:28px}.stage-top{display:flex;justify-content:space-between;align-items:center}.stage-top .eyebrow{font-size:1.5cqw;letter-spacing:.17cqw;margin:0;display:flex;align-items:center;gap:1.2cqw}.status-dot{width:.9cqw;height:.9cqw;min-width:5px;min-height:5px;border-radius:50%;background:#819c4d}.toy-label{font-size:1.15cqw;letter-spacing:.11cqw;color:var(--muted)}.stage h2{font-family:Manrope,Arial,sans-serif;font-size:5.1cqw;line-height:1.16;letter-spacing:-.21cqw;font-weight:650;margin:3.5cqw 0 2.5cqw;min-height:6cqw}.stage-meta{display:flex;justify-content:flex-end;gap:5px;font-size:1.45cqw;align-items:center;color:#5f6c60;border-bottom:1px solid var(--line);padding-bottom:1.5cqw}.stage-meta>span{letter-spacing:.08cqw;white-space:nowrap}.stage-meta strong{color:var(--ink)}#round-limit{color:#92998b}.crowd-wrap{position:relative;flex:1;min-height:0;margin:1.5cqw 0 .8cqw}canvas{display:block;width:100%}#crowd{height:100%;cursor:crosshair}.crowd-legend{display:flex;align-items:center;gap:1.7cqw;font-size:1.2cqw;color:#7d8577;margin:.6cqw 0 2cqw}.crowd-legend>span{display:flex;align-items:center;gap:.6cqw}.legend-dot{width:.8cqw;height:.8cqw;border-radius:50%;display:inline-block}.zero{background:#cdd0c5}.mid{background:#85a37c}.rich{background:#254e3b}.crowd-hint{margin-left:auto;font-size:1.1cqw}.stage-stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:2.3cqw 0}.stage-stats>div{display:flex;flex-direction:column;padding-left:2.5cqw;border-left:1px solid var(--line)}.stage-stats>div:first-child{padding-left:0;border:0}.stage-stats span{font-size:1cqw;letter-spacing:.08cqw;font-weight:650}.stage-stats strong{font-family:Manrope,Arial,sans-serif;font-size:3.6cqw;letter-spacing:-.17cqw;margin:.5cqw 0;font-weight:650;font-variant-numeric:tabular-nums}.stage-stats small{font-size:1.13cqw;color:var(--muted)}.distribution{padding-top:1.7cqw}.chart-heading{display:flex;justify-content:space-between;align-items:center;gap:12px}.distribution .chart-heading{font-size:1.1cqw;font-weight:600;letter-spacing:.08cqw}.chart-heading>span:last-child{color:var(--muted);font-size:inherit;font-weight:400}#histogram{height:7.5cqw;margin-top:.8cqw}.stage-footer{display:flex;justify-content:space-between;gap:5px;font-size:1.05cqw;color:#8a9182;margin-top:1cqw}.stage-footer>span:last-child{font-weight:700;letter-spacing:.12cqw;white-space:nowrap}.controls{padding:2px 0 0 0}.control-heading{display:flex;justify-content:space-between;align-items:center}.control-heading .eyebrow{margin:0;font-size:9px}.live-pill{background:#e6ebda;font-size:9px;letter-spacing:1px;padding:5px 8px;border-radius:4px}.controls h3{font-family:Manrope,Arial,sans-serif;font-size:25px;letter-spacing:-.9px;font-weight:600;line-height:1.25;margin:18px 0 25px}fieldset{border:0;padding:0;margin:0 0 20px;min-width:0}legend{font-size:10px;color:#8e9785;font-weight:500;margin-bottom:12px;width:100%}legend span{font-size:12px;color:var(--ink);font-weight:600;margin-left:10px}.segmented{display:flex;gap:4px;background:#eaece2;border-radius:7px;padding:4px}.segmented button{width:50%;border:0;border-radius:5px;padding:10px 2px;font-size:11px;color:#7b8475}.segmented button[aria-pressed=true]{background:var(--paper);color:var(--ink);box-shadow:0 1px 3px #223c3312;font-weight:600}.help{font-size:11px;color:var(--muted);line-height:1.6;margin:10px 0 0}.rule-options{display:grid;gap:7px}.rule-options button{display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:7px;text-align:left;font-size:12px;background:#f7f6f0}.rule-options button[aria-pressed=true]{border-color:#8ea67c;background:#edf1e5}.rule-options small{display:block;font-size:10px;color:var(--muted);margin-top:4px}.radio{border:1px solid #bdc3b4;width:13px;height:13px;border-radius:50%;padding:3px;background-clip:content-box;flex-shrink:0}.rule-options [aria-pressed=true] .radio{border-color:var(--green);background-color:var(--green)}.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}label{font-size:10px;color:#778170}input[type=number],input[name=seed]{display:block;width:100%;min-width:0;background:var(--paper);border:1px solid var(--line);border-radius:5px;padding:9px 10px;margin-top:5px;color:var(--ink);font-size:12px;outline-offset:1px}.seed-label{display:flex;align-items:center;gap:10px;margin-top:12px}.seed-label input{width:60px;margin:0}.seed-label>span{font-size:9px;color:#969d8f}.speed-row{display:flex;justify-content:space-between}.speed-row label{font-size:11px;color:var(--ink)}output{font-size:10px;color:var(--muted)}input[type=range]{width:100%;accent-color:var(--green);height:4px;margin:15px 0 22px;cursor:pointer}.playback{display:flex;gap:6px}.playback>button{border-radius:6px;padding:12px 10px}.primary{background:var(--green);color:#fff;border-color:var(--green);flex:1;font-size:11px;font-weight:500}.primary:hover,.dark-button:hover{background:#244431}.shortcut{display:flex;justify-content:space-between;font-size:8px;letter-spacing:.3px;color:#929989;margin:11px 0}.message{font-size:11px;color:#986344;line-height:1.5}.message:empty{display:none}.control-note{border-top:1px solid var(--line);display:flex;gap:12px;padding-top:14px;margin-top:21px;color:#89927d}.control-note>span{font-size:25px;line-height:1}.control-note p{font-size:10px;line-height:1.7;margin:0}.analysis-section{padding:62px 0 0}.section-heading{display:flex;justify-content:space-between;align-items:center;gap:20px}.section-heading h2{font-family:Manrope,Arial,sans-serif;font-size:28px;font-weight:600;letter-spacing:-1px;margin:0}.section-description{font-size:12px;color:var(--muted);margin:12px 0 25px}.comparison-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.comparison-card{border:1px solid var(--line);padding:18px;border-radius:9px;background:#f9f8f3;border-top:3px solid var(--scenario)}.comparison-card h3{font-size:12px;margin:0 0 4px}.comparison-card .sub{color:var(--muted);font-size:10px}.comparison-card dl{display:grid;grid-template-columns:1fr auto;gap:9px;font-size:11px;margin:18px 0 0}.comparison-card dt{color:var(--muted)}.comparison-card dd{margin:0;font-variant-numeric:tabular-nums}.comparison-card canvas{height:54px;margin-top:12px}.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:18px 0}.chart-card{border:1px solid var(--line);border-radius:9px;padding:20px;background:#f9f8f3}.chart-card h3{font-size:13px;font-weight:550;margin:0}.chart-card .chart-heading>span{font-size:8px}.chart-card canvas{height:175px;margin-top:20px}.chart-legend{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;font-size:10px;color:var(--muted)}.chart-legend span:before{content:'';display:inline-block;width:15px;height:3px;background:var(--scenario);vertical-align:middle;margin-right:7px}.repeat-card{margin-top:32px;border:1px solid #d6dfc5;border-radius:10px;background:#eaf0de;padding:26px;display:flex;justify-content:space-between;align-items:center;gap:20px}.repeat-card .eyebrow{font-size:9px;margin-bottom:8px}.repeat-card h3{font-family:Manrope,Arial,sans-serif;font-size:23px;letter-spacing:-.5px;font-weight:600;margin:0}.repeat-card p:last-child{font-size:11px;color:#7a856c;margin-bottom:0}.dark-button{background:var(--green);color:white;border:0;padding:13px 17px;border-radius:6px;white-space:nowrap;font-size:11px}.site-footer{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding:24px 0;font-size:9px;color:#8e9685;margin-top:40px;letter-spacing:.5px}.person-tip{position:absolute;right:4px;top:4px;padding:7px 10px;background:#fcfbf7ed;border:1px solid var(--line);border-radius:5px;font-size:1.3cqw;pointer-events:none}.person-card{display:flex;align-items:center;gap:20px;background:var(--paper);border:1px solid var(--line);border-radius:9px;margin-top:24px;padding:20px}.person-card>div{min-width:200px}.person-card h3{margin:0;font-size:18px}.person-card p:last-child{font-size:11px;color:var(--muted)}.person-card canvas{height:100px;min-width:0;flex:1}.person-card .eyebrow{font-size:9px}#batch-results{margin-top:18px;padding:22px;border:1px solid var(--line);border-radius:9px;overflow:auto;background:var(--paper)}#batch-results h3{margin:0 0 8px;font-size:17px}#batch-results p{font-size:11px;color:var(--muted);line-height:1.6}table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:11px}th,td{text-align:left;border-bottom:1px solid var(--line);padding:12px 10px}th{font-size:10px}td small{display:block;color:var(--muted);margin-top:4px}.batch-actions{display:flex;gap:8px;margin-top:15px}.progress-track{height:6px;background:#e7ebdf;border-radius:10px;overflow:hidden;margin:18px 0}.progress-track span{height:100%;display:block;background:var(--green)}
+@media(min-width:1400px){.workspace{grid-template-columns:minmax(0,1fr) 320px;gap:40px}.controls h3{margin-bottom:30px}fieldset{margin-bottom:24px}}
+@media(max-width:1000px){main{padding:0 24px}.site-header{padding:22px 24px}.workspace{gap:20px;grid-template-columns:minmax(0,1fr) 265px}.workspace>.stage{padding:20px}.intro{padding-top:32px}.controls h3{font-size:22px;margin:12px 0 18px}fieldset{margin-bottom:15px}.comparison-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.intro{padding-top:32px}.intro h1{font-size:28px}.workspace{display:flex;flex-direction:column}.stage{width:100%}.controls{width:100%;padding:22px;background:#eeefe5;border-radius:10px}.controls h3 br{display:none}.control-note{display:none}.chart-grid{grid-template-columns:1fr}.section-heading h2{font-size:24px}.section-heading{align-items:flex-start}.repeat-card{align-items:flex-start;flex-direction:column}.person-card{flex-wrap:wrap}.person-card canvas{width:100%;flex:auto}.person-card>button{position:absolute;right:48px}.site-footer{gap:18px;line-height:1.5}.analysis-section{padding-top:40px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+/* Keep the square readable at narrow widths. */
+.stage-top .eyebrow{font-size:max(7px,1.5cqw)}.toy-label{font-size:max(6px,1.15cqw)}.stage h2{font-size:max(20px,5.1cqw)}.stage-meta{font-size:max(7px,1.45cqw)}.crowd-legend{font-size:max(6.5px,1.25cqw)}.crowd-hint{font-size:max(6px,1.1cqw)}.stage-stats span{font-size:max(6px,1cqw)}.stage-stats strong{font-size:max(16px,3.6cqw)}.stage-stats small{font-size:max(6.5px,1.2cqw)}.distribution .chart-heading{font-size:max(6.5px,1.2cqw)}.stage-footer{font-size:max(6px,1.05cqw)}.site-header{padding:18px 14px}.brand{font-size:11px;gap:8px}.intro h1{font-size:25px}.intro .eyebrow{font-size:8px}.workspace>.stage{padding:13px}.crowd-hint{display:none!important}.stage-meta{gap:3px}.stage-stats>div{padding-left:1.5cqw}.stage-stats small{font-size:6px}.comparison-card{padding:12px}.section-heading .quiet{font-size:10px;padding:8px}}
+
+#export-dialog{width:min(620px,calc(100% - 32px));border:1px solid var(--line);border-radius:14px;padding:30px;background:var(--paper);color:var(--ink);box-shadow:0 20px 80px #223c3325}#export-dialog::backdrop{background:#223c3355;backdrop-filter:blur(3px)}#export-dialog form{float:right}#export-dialog h2{font:600 27px Manrope,Arial,sans-serif;letter-spacing:-1px;margin:10px 0}#export-dialog p{font-size:12px;color:var(--muted);line-height:1.6}#export-dialog .dark-button{display:inline-block;margin:15px 0 25px}#export-dialog summary{font-size:12px;cursor:pointer}#csv-preview{display:block;width:100%;resize:vertical;background:#f2f4ec;color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:12px;margin-top:15px;font:11px/1.6 monospace}
+
+.person-card #person-portrait{width:86px;height:96px;flex:0 0 86px;background:#edf0e5;border-radius:8px}
+
+.stage-stats>div{cursor:pointer;border-radius:6px;transition:background .15s,box-shadow .15s;padding-top:.4cqw;padding-bottom:.4cqw;padding-right:.6cqw}
+.stage-stats>div:hover{background:#eef1e6}
+.stage-stats>div.active{background:#e8edda;box-shadow:inset 0 0 0 1px #c5d39a}
+.stage-stats>div:focus-visible{outline:3px solid #ba8337;outline-offset:2px}
+
+.chart-tip{position:fixed;z-index:40;min-width:120px;max-width:260px;padding:9px 11px;background:#fcfbf7f2;border:1px solid var(--line);border-radius:8px;box-shadow:0 10px 30px #223c3320;pointer-events:none;display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--ink)}
+.chart-tip[hidden]{display:none!important}
+.chart-tip strong{font-weight:650}
+.chart-tip>span:not(.row){color:var(--muted)}
+.chart-tip .row{display:grid;grid-template-columns:10px 1fr auto;gap:7px;align-items:center}
+.chart-tip .swatch{width:8px;height:8px;border-radius:50%;background:var(--c)}
+#histogram,#gini-chart,#zero-chart,#std-chart,#mean-chart,#dist-chart,#person-chart,[id^="mini-"]{cursor:crosshair}
+
+.dist-caption{margin:12px 0 0;font-size:12px;line-height:1.5;color:var(--muted)}
+.chart-legend .guide-legend:before{content:'';display:inline-block;width:15px;height:0;border-top:2px dashed #8a8374;vertical-align:middle;margin-right:7px;background:transparent}
+
+.scrub-row{margin:14px 0 4px}
+.scrub-row input[type=range]{width:100%;margin-top:8px}
+.scrub-help{margin:6px 0 0;font-size:11px;color:var(--muted);line-height:1.4}
+.primary.needs-restart{background:#6d8a3f;border-color:#6d8a3f}
+.primary.needs-restart:hover{background:#5c7534}
+
+</style>
+</head>
+<body>
+<header class="site-header"><a href="./" class="brand"><span class="brand-mark">↗</span> THE LUCK LAB</a></header>
+<main>
+  <section class="intro">
+    <h1>Who gets rich?</h1>
+    <p class="intro-lead">Same start, fair coin, no skill. Luck alone can still create rich and poor, and the rule at $0 changes how far that goes.</p>
+    <p class="intro-note">Toy model only, not a claim about real economies. Stats include people at $0. Top 10% / 1% means the richest tenth and hundredth of the group.</p>
+  </section>
+  <div class="workspace">
+    <section id="stage" class="stage" aria-label="Wealth simulation stage">
+      <div class="stage-top"><span class="eyebrow"><span class="status-dot"></span> LIVE</span><span class="toy-label">TOY MODEL</span></div>
+      <h2 id="stage-title">Who gets rich?</h2>
+      <div class="stage-meta"><span>ROUND <strong id="round">0</strong><span id="round-limit"> / 10,000</span></span></div>
+      <div class="crowd-wrap"><canvas id="crowd" role="img" aria-label="People colored by wealth"></canvas><div id="person-tip" class="person-tip" hidden></div></div>
+      <div class="crowd-legend"><span><i class="legend-dot zero"></i> $0</span><span><i class="legend-dot mid"></i> Start</span><span><i class="legend-dot rich"></i> Rich</span><span class="crowd-hint">Click a stat or a person</span></div>
+      <div class="stage-stats"><div data-highlight="median" role="button" tabindex="0" aria-pressed="false"><span>MEDIAN</span><strong id="median">$100</strong></div><div data-highlight="zero" role="button" tabindex="0" aria-pressed="false"><span>AT $0</span><strong id="zero">0%</strong><small id="zero-detail">Out for good</small></div><div data-highlight="top" role="button" tabindex="0" aria-pressed="false"><span>TOP 10%</span><strong id="top">10%</strong></div><div data-highlight="top1" role="button" tabindex="0" aria-pressed="false"><span>TOP 1%</span><strong id="top1">1%</strong></div></div>
+      <div class="distribution"><div class="chart-heading"><span>WEALTH SPREAD</span><span id="hist-scale">100 people · equal start</span></div><canvas id="histogram" role="img" aria-label="Wealth histogram"></canvas></div>
+      <div class="stage-footer"><span id="stage-footnote">Fair coin. Unequal ends?</span><span>THE LUCK LAB ↗</span></div>
+    </section>
+    <aside class="controls">
+      <div class="control-heading"><span class="eyebrow">CONTROLS</span><span class="live-pill" id="live-status">READY</span></div>
+      <h3>Change the rules.</h3>
+      <fieldset><legend>01 <span>Money</span></legend><div class="segmented"><button data-model="transfer" aria-pressed="true">↔ Transfers</button><button data-model="independent" aria-pressed="false">± Independent</button></div><p id="model-description" class="help">Win from someone else. Total money stays fixed.</p></fieldset>
+      <fieldset><legend>02 <span>At $0</span></legend><div class="rule-options"><button data-recovery="false" aria-pressed="true"><span class="radio"></span><span>Bankruptcy<small>Out of the game.</small></span></button><button data-recovery="true" aria-pressed="false"><span class="radio"></span><span>Recovery<small>Can still win again.</small></span></button></div></fieldset>
+      <form id="settings"><fieldset><legend>03 <span>Setup</span></legend><div class="input-grid"><label>People<input name="population" type="number" min="2" max="1000" step="1" value="100" required></label><label>Start ($)<input name="initial" type="number" min="1" max="1000000" step="1" value="100" required></label><label>Stake ($)<input name="stake" type="number" min="1" max="1000000" step="1" value="1" required></label><label>Rounds<input name="limit" type="number" min="1" max="10000000" step="1" value="10000" required></label></div><label class="seed-label">Seed <input name="seed" value="3" maxlength="80" required><span>Same seed → same run.</span></label></fieldset></form>
+      <div class="speed-row"><label for="speed">Speed</label><output id="speed-label">200 rounds/s</output></div><input id="speed" type="range" min="0" max="5" value="2" aria-label="Playback speed">
+      <div class="playback"><button id="play" class="primary">▶ Start</button><button id="step" title="One round" aria-label="Step one round">↦</button><button id="reset" title="Reset" aria-label="Reset">↺</button></div>
+      <div class="scrub-row" id="scrub-wrap"><div class="speed-row"><label for="scrub">Scrub</label><output id="scrub-label">Pause to scrub</output></div><input id="scrub" type="range" min="0" max="0" value="0" disabled aria-label="Scrub history"><p class="scrub-help">Pause or finish, then drag.</p></div>
+      <p class="shortcut">SPACE play <span>← → speed</span> R reset</p>
+      <p id="message" role="status" class="message"></p>
+    </aside>
+  </div>
+  <section class="analysis-section"><div class="section-heading"><div><h2>Four rules, side by side</h2></div><button id="export" class="quiet">↓ Export</button></div>
+    <div class="comparison-grid" id="comparison"></div>
+    <div class="chart-grid"><div class="chart-card"><div class="chart-heading"><h3>Inequality</h3><span>GINI</span></div><canvas id="gini-chart" role="img" aria-label="Gini over time"></canvas></div><div class="chart-card"><div class="chart-heading"><h3>At zero</h3><span>% OF PEOPLE</span></div><canvas id="zero-chart" role="img" aria-label="Share at zero over time"></canvas></div><div class="chart-card"><div class="chart-heading"><h3>Spread</h3><span>STD DEV · √t GUIDE</span></div><canvas id="std-chart" role="img" aria-label="Standard deviation over time"></canvas></div><div class="chart-card"><div class="chart-heading"><h3>Mean</h3><span>AVERAGE WEALTH</span></div><canvas id="mean-chart" role="img" aria-label="Mean wealth over time"></canvas></div><div class="chart-card"><div class="chart-heading"><h3>Distribution</h3><span id="dist-shape">SELECTED RULE</span></div><canvas id="dist-chart" role="img" aria-label="Current wealth distribution"></canvas><p id="dist-caption" class="dist-caption"></p></div></div>
+    <div class="chart-legend" id="scenario-legend"></div>
+    <section class="person-card" id="person-card" hidden><canvas id="person-portrait" role="img" aria-label="Selected person"></canvas><div><p class="eyebrow">ONE PERSON</p><h3 id="person-heading"></h3><p id="person-summary"></p></div><canvas id="person-chart" role="img" aria-label="Wealth history"></canvas><button id="unpin" class="quiet" aria-label="Unpin">×</button></section>
+    <div class="repeat-card"><div><h3>Run it 20 times</h3><p>See the typical result, not just one lucky run.</p></div><button id="repeat" class="dark-button">Run 20 times ↗</button></div><div id="batch-results" hidden></div>
+  </section>
+  <footer class="site-footer"><span>THE LUCK LAB</span><span>For curiosity, not financial advice.</span></footer>
+</main>
+<div id="chart-tip" class="chart-tip" hidden role="tooltip"></div>
+<dialog id="export-dialog" aria-labelledby="export-title"><form method="dialog"><button class="quiet" aria-label="Close">×</button></form><h2 id="export-title">Export</h2><p id="export-description"></p><a id="download-csv" class="dark-button">↓ Download CSV</a><details><summary>Preview / copy</summary><textarea id="csv-preview" readonly aria-label="CSV" rows="9" spellcheck="false"></textarea></details></dialog>
+
+<script type="module">
+export const DEFAULTS = Object.freeze({ population: 100, initial: 100, stake: 1, limit: 10000, seed: '3' });
+export const SCENARIOS = [
+  { id: 'transfer-permanent', model: 'transfer', recovery: false, label: 'Transfers · bankrupt' },
+  { id: 'transfer-recovery', model: 'transfer', recovery: true, label: 'Transfers · recover' },
+  { id: 'independent-permanent', model: 'independent', recovery: false, label: 'Independent · bankrupt' },
+  { id: 'independent-recovery', model: 'independent', recovery: true, label: 'Independent · recover' }
+];
+export function validateSettings(s) {
+  for (const [key, min, max] of [['population',2,1000],['initial',1,1000000],['stake',1,1000000],['limit',1,10000000]]) {
+    if (!Number.isInteger(s[key]) || s[key] < min || s[key] > max) throw new Error(`${key} must be a whole number between ${min} and ${max}.`);
+  }
+  if (!String(s.seed).trim() || String(s.seed).length > 80) throw new Error('Use a seed of 1-80 characters.');
+  return {...s, seed: String(s.seed)};
+}
+export function random(seed) {
+  let h = 2166136261;
+  for (const c of String(seed)) h = Math.imul(h ^ c.charCodeAt(0), 16777619);
+  return () => { h = (h + 0x6D2B79F5) | 0; let t = h; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+}
+export function quantile(sorted, p) {
+  if (!sorted.length) return null;
+  const i = (sorted.length - 1) * p, lo = Math.floor(i);
+  return sorted[lo] + (sorted[Math.ceil(i)] - sorted[lo]) * (i - lo);
+}
+export function metrics(balances) {
+  const a = [...balances].sort((a,b) => a-b), n = a.length, total = a.reduce((s,v)=>s+v,0);
+  const mean = total/n, variance = a.reduce((s,v)=>s+(v-mean)**2,0)/n;
+  const weighted = a.reduce((s,v,i)=>s+(i+1)*v,0);
+  return { total, mean, median: quantile(a,.5), zero: a.filter(v=>v===0).length/n,
+    solvent: a.filter(v=>v>0).length, variance, std: Math.sqrt(variance),
+    gini: total ? 2*weighted/(n*total)-(n+1)/n : null,
+    top: total ? a.slice(-Math.ceil(n*.1)).reduce((s,v)=>s+v,0)/total : null,
+    top1: total ? a.slice(-Math.ceil(n*.01)).reduce((s,v)=>s+v,0)/total : null, max: a[n-1] };
+}
+export class Scenario {
+  constructor(settings, spec) {
+    this.settings = settings; Object.assign(this,spec); this.balances = Array(settings.population).fill(settings.initial);
+    this.rng = random(`${settings.seed}:${spec.id}`); this.round = 0; this.done = false; this.history = []; this.lastTransfers = [];
+    this.interval = Math.max(1,Math.ceil(settings.limit/200)); this.sample();
+  }
+  sample() {
+    if (this.history.at(-1)?.round === this.round) return;
+    this.history.push({round:this.round, ...metrics(this.balances), balances:[...this.balances]});
+  }
+  step() {
+    if (this.done) return;
+    const eligible = [];
+    for(let i=0;i<this.balances.length;i++) if(this.recovery || this.balances[i]>0) eligible.push(i);
+    this.lastTransfers = [];
+    if ((this.model==='transfer' && (eligible.length<2 || !this.balances.some(v=>v>0))) || !eligible.length) { this.done=true; this.sample(); return; }
+    if (this.model === 'transfer') {
+      for (let i=eligible.length-1;i>0;i--) { const j=Math.floor(this.rng()*(i+1)); [eligible[i],eligible[j]]=[eligible[j],eligible[i]]; }
+      for (let i=0;i+1<eligible.length;i+=2) {
+        const [payer,payee] = this.rng()<.5 ? [eligible[i],eligible[i+1]] : [eligible[i+1],eligible[i]];
+        const amount=Math.min(this.settings.stake,this.balances[payer]);
+        this.balances[payer]-=amount; this.balances[payee]+=amount;
+        if (amount) this.lastTransfers.push({payer,payee,amount});
+      }
+    } else {
+      for (const i of eligible) this.balances[i] += this.rng()<.5 ? this.settings.stake : -Math.min(this.settings.stake,this.balances[i]);
+    }
+    this.round++;
+    const solvent=this.balances.reduce((n,v)=>n+(v>0),0);
+    this.done=this.round>=this.settings.limit || (!this.recovery && solvent < (this.model==='transfer'?2:1));
+    if (this.round%this.interval===0 || this.done) this.sample();
+  }
+  snapshot(pin=0) {
+    return {id:this.id, model:this.model, recovery:this.recovery, label:this.label, round:this.round, done:this.done,
+      balances:[...this.balances], metrics:metrics(this.balances), lastTransfers:this.lastTransfers,
+      history:this.history.map(({balances,...m})=>({...m, balances:[...balances]})),
+      personHistory:this.history.map(s=>({round:s.round,value:s.balances[pin]}))};
+  }
+}
+export class Experiment {
+  constructor(settings=DEFAULTS) { this.settings=validateSettings(settings); this.scenarios=SCENARIOS.map(s=>new Scenario(this.settings,s)); this.round=0; }
+  advance(count) { for(let i=0;i<count && this.round<this.settings.limit && !this.done;i++){ for(const s of this.scenarios)s.step(); this.round++; } }
+  get done() { return this.scenarios.every(s=>s.done); }
+  snapshot(pin=0) { return {settings:this.settings, round:this.round, done:this.done, scenarios:this.scenarios.map(s=>s.snapshot(pin))}; }
+}
+
+const WORKER_SOURCE = "const DEFAULTS = Object.freeze({ population: 100, initial: 100, stake: 1, limit: 10000, seed: '3' });\nconst SCENARIOS = [\n  { id: 'transfer-permanent', model: 'transfer', recovery: false, label: 'Transfers · bankrupt' },\n  { id: 'transfer-recovery', model: 'transfer', recovery: true, label: 'Transfers · recover' },\n  { id: 'independent-permanent', model: 'independent', recovery: false, label: 'Independent · bankrupt' },\n  { id: 'independent-recovery', model: 'independent', recovery: true, label: 'Independent · recover' }\n];\nfunction validateSettings(s) {\n  for (const [key, min, max] of [['population',2,1000],['initial',1,1000000],['stake',1,1000000],['limit',1,10000000]]) {\n    if (!Number.isInteger(s[key]) || s[key] < min || s[key] > max) throw new Error(`${key} must be a whole number between ${min} and ${max}.`);\n  }\n  if (!String(s.seed).trim() || String(s.seed).length > 80) throw new Error('Use a seed of 1-80 characters.');\n  return {...s, seed: String(s.seed)};\n}\nfunction random(seed) {\n  let h = 2166136261;\n  for (const c of String(seed)) h = Math.imul(h ^ c.charCodeAt(0), 16777619);\n  return () => { h = (h + 0x6D2B79F5) | 0; let t = h; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };\n}\nfunction quantile(sorted, p) {\n  if (!sorted.length) return null;\n  const i = (sorted.length - 1) * p, lo = Math.floor(i);\n  return sorted[lo] + (sorted[Math.ceil(i)] - sorted[lo]) * (i - lo);\n}\nfunction metrics(balances) {\n  const a = [...balances].sort((a,b) => a-b), n = a.length, total = a.reduce((s,v)=>s+v,0);\n  const mean = total/n, variance = a.reduce((s,v)=>s+(v-mean)**2,0)/n;\n  const weighted = a.reduce((s,v,i)=>s+(i+1)*v,0);\n  return { total, mean, median: quantile(a,.5), zero: a.filter(v=>v===0).length/n,\n    solvent: a.filter(v=>v>0).length, variance, std: Math.sqrt(variance),\n    gini: total ? 2*weighted/(n*total)-(n+1)/n : null,\n    top: total ? a.slice(-Math.ceil(n*.1)).reduce((s,v)=>s+v,0)/total : null,\n    top1: total ? a.slice(-Math.ceil(n*.01)).reduce((s,v)=>s+v,0)/total : null, max: a[n-1] };\n}\nclass Scenario {\n  constructor(settings, spec) {\n    this.settings = settings; Object.assign(this,spec); this.balances = Array(settings.population).fill(settings.initial);\n    this.rng = random(`${settings.seed}:${spec.id}`); this.round = 0; this.done = false; this.history = []; this.lastTransfers = [];\n    this.interval = Math.max(1,Math.ceil(settings.limit/200)); this.sample();\n  }\n  sample() {\n    if (this.history.at(-1)?.round === this.round) return;\n    this.history.push({round:this.round, ...metrics(this.balances), balances:[...this.balances]});\n  }\n  step() {\n    if (this.done) return;\n    const eligible = [];\n    for(let i=0;i<this.balances.length;i++) if(this.recovery || this.balances[i]>0) eligible.push(i);\n    this.lastTransfers = [];\n    if ((this.model==='transfer' && (eligible.length<2 || !this.balances.some(v=>v>0))) || !eligible.length) { this.done=true; this.sample(); return; }\n    if (this.model === 'transfer') {\n      for (let i=eligible.length-1;i>0;i--) { const j=Math.floor(this.rng()*(i+1)); [eligible[i],eligible[j]]=[eligible[j],eligible[i]]; }\n      for (let i=0;i+1<eligible.length;i+=2) {\n        const [payer,payee] = this.rng()<.5 ? [eligible[i],eligible[i+1]] : [eligible[i+1],eligible[i]];\n        const amount=Math.min(this.settings.stake,this.balances[payer]);\n        this.balances[payer]-=amount; this.balances[payee]+=amount;\n        if (amount) this.lastTransfers.push({payer,payee,amount});\n      }\n    } else {\n      for (const i of eligible) this.balances[i] += this.rng()<.5 ? this.settings.stake : -Math.min(this.settings.stake,this.balances[i]);\n    }\n    this.round++;\n    const solvent=this.balances.reduce((n,v)=>n+(v>0),0);\n    this.done=this.round>=this.settings.limit || (!this.recovery && solvent < (this.model==='transfer'?2:1));\n    if (this.round%this.interval===0 || this.done) this.sample();\n  }\n  snapshot(pin=0) {\n    return {id:this.id, model:this.model, recovery:this.recovery, label:this.label, round:this.round, done:this.done,\n      balances:[...this.balances], metrics:metrics(this.balances), lastTransfers:this.lastTransfers,\n      history:this.history.map(({balances,...m})=>({...m, balances:[...balances]})),\n      personHistory:this.history.map(s=>({round:s.round,value:s.balances[pin]}))};\n  }\n}\nclass Experiment {\n  constructor(settings=DEFAULTS) { this.settings=validateSettings(settings); this.scenarios=SCENARIOS.map(s=>new Scenario(this.settings,s)); this.round=0; }\n  advance(count) { for(let i=0;i<count && this.round<this.settings.limit && !this.done;i++){ for(const s of this.scenarios)s.step(); this.round++; } }\n  get done() { return this.scenarios.every(s=>s.done); }\n  snapshot(pin=0) { return {settings:this.settings, round:this.round, done:this.done, scenarios:this.scenarios.map(s=>s.snapshot(pin))}; }\n}\n\nlet experiment, running=false, timer, speed=200, pin=0;\nfunction leanHistory(scenarios){\n  return scenarios.map(s=>{\n    const history=s.history.map(({balances,...m})=>m);\n    return {...s, history};\n  });\n}\nfunction send(){\n  const state=experiment.snapshot(pin);\n  // Keep balance snapshots when paused/complete so the UI can scrub time; strip them while running to stay light.\n  postMessage({type:'state', ...state, scenarios:running?leanHistory(state.scenarios):state.scenarios, running});\n}\nfunction tick(){ if(!running)return; experiment.advance(Math.max(1,Math.round(speed/20))); if(experiment.done)running=false; send(); if(running)timer=setTimeout(tick,Math.max(50,1000/speed)); }\nself.onmessage=async ({data:m})=>{\n  try {\n    if(m.type==='init'){clearTimeout(timer);running=false;pin=0;experiment=new Experiment(m.settings);send();}\n    if(m.type==='play'){if(experiment.done)return;running=true;clearTimeout(timer);tick();}\n    if(m.type==='pause'){running=false;clearTimeout(timer);send();}\n    if(m.type==='speed')speed=m.speed;\n    if(m.type==='step'){running=false;clearTimeout(timer);experiment.advance(1);send();}\n    if(m.type==='pin'){pin=m.pin;send();}\n    if(m.type==='export')postMessage({type:'export',state:experiment.snapshot(pin)});\n    if(m.type==='batch'){\n      const runs=[];\n      for(let i=0;i<20;i++){\n        const seed=`${m.settings.seed}/repeat/${String(i+1).padStart(2,'0')}`, e=new Experiment({...m.settings,seed});\n        const chunk=Math.max(500,Math.ceil(m.settings.limit/200));\n        while(!e.done && e.round<e.settings.limit){e.advance(chunk);await new Promise(r=>setTimeout(r,0));}\n        runs.push({seed,scenarios:e.scenarios.map(s=>({id:s.id,metrics:s.snapshot().metrics}))});\n        postMessage({type:'progress',completed:i+1});\n      }\n      const summary=runs[0].scenarios.map((s,i)=>({id:s.id, metrics:Object.fromEntries(['median','mean','zero','top','top1','std','gini','total'].map(key=>{\n        const a=runs.map(r=>r.scenarios[i].metrics[key]).filter(v=>v!==null).sort((a,b)=>a-b);\n        return [key,{median:quantile(a,.5),low:quantile(a,.1),high:quantile(a,.9),count:a.length}];\n      }))}));\n      postMessage({type:'batch',summary,runs,settings:m.settings});\n    }\n  }catch(error){running=false;clearTimeout(timer);postMessage({type:'error',message:error.message});}\n};\n";
+function createSimWorker(){
+  const url = URL.createObjectURL(new Blob([WORKER_SOURCE], {type: 'text/javascript'}));
+  const w = new Worker(url);
+  w.addEventListener('error', () => URL.revokeObjectURL(url), {once: true});
+  return w;
+}
+const $=id=>document.getElementById(id);
+const colors=['#315b44','#93aa59','#b57c55','#8198ae'];
+const money=v=>v===null?'-':new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:2}).format(v);
+const pct=v=>v===null?'-':`${(v*100).toFixed(1).replace(/\.0$/,'')}%`;
+const num=v=>Number(v).toLocaleString('en-US');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+const speeds=[1,20,200,2000,10000,100000];
+let live, displayed, selected='transfer-permanent', pinned=null;
+let previous=[], changes=[], changeAt=0, lastId='', positions=[], lastDetails=0;
+let smugThreshold=DEFAULTS.initial*2;
+let highlight=null, crowdHit=18, scrubIndex=null;
+let batchWorker, batchData, currentBatchSettings;
+const worker=createSimWorker();
+worker.onmessage=({data:m})=>{
+  if(m.type==='error'){setMessage(m.message);return;}
+  if(m.type==='export'){exportExperiment(m.state);return;}
+  if(m.type==='state'){
+    live=m;
+    if(m.running)scrubIndex=null;
+    else if(scrubIndex!=null && canScrub(m)){scrubIndex=Math.min(scrubIndex,scrubCount(m)-1);show(buildScrubState(m,scrubIndex),true);syncScrubber();return;}
+    scrubIndex=null;show(m);syncScrubber();
+  }
+};
+worker.onerror=()=>setMessage('Worker failed to start. Try another browser, or open this file over http://.');
+worker.postMessage({type:'init',settings:DEFAULTS});
+function setMessage(message){$('message').textContent=message;}
+function scenario(){return displayed?.scenarios.find(s=>s.id===selected);}
+function canScrub(state){return !!state?.scenarios?.[0]?.history?.[0]?.balances;}
+function scrubCount(state){return state?.scenarios?.[0]?.history?.length||0;}
+function buildScrubState(source,index){
+  const pin=pinned??0;
+  const scenarios=source.scenarios.map(s=>{
+    const frame=s.history[index], {balances,...metrics}=frame, sliced=s.history.slice(0,index+1);
+    return {id:s.id,model:s.model,recovery:s.recovery,label:s.label,round:frame.round,done:!!source.done&&index===s.history.length-1,
+      balances:[...balances],metrics,lastTransfers:[],history:sliced.map(({balances:b,...m})=>m),
+      personHistory:sliced.map(h=>({round:h.round,value:h.balances[Math.min(pin,h.balances.length-1)]}))};
+  });
+  return {settings:source.settings,round:scenarios[0].round,done:source.done,running:false,scenarios,scrubbing:true};
+}
+function syncScrubber(){
+  const scrub=$('scrub'), n=canScrub(live)?scrubCount(live):0, usable=n>1&&!live?.running;
+  scrub.disabled=!usable;scrub.max=Math.max(0,n-1);
+  if(!usable){
+    scrub.value=n?n-1:0;
+    $('scrub-label').textContent=live?.running?'Running…':'Pause to scrub';
+    return;
+  }
+  const idx=scrubIndex??n-1;scrub.value=idx;
+  const round=live.scenarios[0].history[idx].round;
+  $('scrub-label').textContent=idx===n-1?`Round ${num(round)} · latest`:`Round ${num(round)} · ${idx+1} / ${n}`;
+}
+function clearScrub(){scrubIndex=null;}
+function setSelected(id){
+  selected=id;lastId='';
+  if(live){
+    if(scrubIndex!=null && canScrub(live))show(buildScrubState(live,scrubIndex),true);
+    else show(live,true);
+    syncScrubber();
+  }
+}
+function show(state,force=false){
+  displayed=state;
+  const s=scenario(); if(!s)return;
+  const ranked=[...s.balances].sort((a,b)=>b-a);
+  smugThreshold=Math.max(state.settings.initial*2,ranked[Math.ceil(ranked.length*.1)-1]);
+  if(lastId===s.id && previous.length===s.balances.length)changes=s.balances.map((v,i)=>v-previous[i]);
+  else changes=s.balances.map(()=>0);
+  previous=[...s.balances];lastId=s.id;changeAt=performance.now();
+  $('round').textContent=num(s.round);$('round-limit').textContent=` / ${num(state.settings.limit)}`;
+  $('median').textContent=money(s.metrics.median);$('zero').textContent=pct(s.metrics.zero);$('top').textContent=pct(s.metrics.top);$('top1').textContent=pct(s.metrics.top1);
+  $('zero-detail').textContent=s.recovery?'Can return':'Out for good';
+  $('hist-scale').textContent=`${num(state.settings.population)} people · ${money(s.metrics.total)} total`;
+  const scrubbing=!!state.scrubbing;
+  $('stage-footnote').textContent=scrubbing?`Scrub · round ${num(s.round)}`:s.recovery?'$0 can still win.':'$0 is out.';
+  $('crowd').setAttribute('aria-label',`${state.settings.population} people. Median ${money(s.metrics.median)}. ${pct(s.metrics.zero)} at zero.`);
+  $('live-status').textContent=scrubbing?'SCRUB':state.done?'DONE':state.running?'RUNNING':state.round?'PAUSED':'READY';
+  $('play').disabled=false;$('step').disabled=!!state.done && !scrubbing;
+  document.querySelectorAll('[data-model]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.model===s.model)));
+  document.querySelectorAll('[data-recovery]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.recovery===String(s.recovery))));
+  $('model-description').textContent=s.model==='transfer'?'Win from someone else. Total money stays fixed.':'Win or lose vs the outside. Total money can change.';
+  drawHistogram($('histogram'),s.balances,histMax());
+  updatePerson();updatePlayButton();
+  if(force || scrubbing || !state.running || performance.now()-lastDetails>220){renderDetails();lastDetails=performance.now();}
+}
+function canvasContext(canvas){
+  const box=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);
+  const w=box.width,h=box.height;if(!w||!h)return null;
+  if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
+  const ctx=canvas.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);return {ctx,w,h};
+}
+function histMax(){return Math.max(displayed.settings.initial*2,...displayed.scenarios.map(s=>s.metrics.max),1);}
+const chartMeta=new WeakMap();
+const chartHover=new Map();
+function placeChartTip(clientX,clientY,html){
+  const tip=$('chart-tip');tip.innerHTML=html;tip.hidden=false;
+  const pad=14,tw=tip.offsetWidth,th=tip.offsetHeight,vw=window.innerWidth,vh=window.innerHeight;
+  tip.style.left=`${Math.min(vw-tw-8,Math.max(8,clientX+pad))}px`;
+  tip.style.top=`${Math.min(vh-th-8,Math.max(8,clientY-th-pad))}px`;
+}
+function hideChartTip(){$('chart-tip').hidden=true;}
+function histRangeLabel(i,max){
+  if(i===0)return '$0';
+  const lo=(i-1)/16*max,hi=i/16*max;
+  return i===16?`${money(lo)}+`:`${money(lo)} - ${money(hi)}`;
+}
+function nearestPoint(points,round){
+  let best=null,bestD=Infinity;
+  for(const p of points){if(p.value===null||p.value===undefined)continue;const d=Math.abs(p.round-round);if(d<bestD){bestD=d;best=p;}}
+  return best;
+}
+function bindChartHover(canvas){
+  if(canvas.dataset.chartBound)return;canvas.dataset.chartBound='1';
+  canvas.addEventListener('pointermove',e=>{
+    const meta=chartMeta.get(canvas);if(!meta)return;
+    const box=canvas.getBoundingClientRect(),x=e.clientX-box.left,y=e.clientY-box.top;
+    if(meta.kind==='hist'){
+      if(y>meta.height||x<0||x>meta.w){if(chartHover.get(canvas.id)!=null){chartHover.delete(canvas.id);meta.redraw();hideChartTip();}return;}
+      const i=Math.min(16,Math.max(0,Math.floor(x/meta.step)));
+      if(chartHover.get(canvas.id)!==i){chartHover.set(canvas.id,i);meta.redraw();}
+      placeChartTip(e.clientX,e.clientY,`<strong>${histRangeLabel(i,meta.max)}</strong><span>${num(meta.bins[i])} people</span>`);
+      return;
+    }
+    const {padL,padB,padT,right,w,h,limit}=meta;
+    if(x<padL||x>w-right||y<padT||y>h-padB){if(chartHover.has(canvas.id)){chartHover.delete(canvas.id);meta.redraw();hideChartTip();}return;}
+    const round=Math.round((x-padL)/Math.max(1,w-padL-right)*Math.max(1,limit));
+    if(chartHover.get(canvas.id)!==round){chartHover.set(canvas.id,round);meta.redraw();}
+    const rows=meta.series.map(s=>{const p=nearestPoint(s.points,round);return p?`<span class="swatch" style="--c:${s.color}"></span><span>${s.label||'Series'}</span><strong>${meta.format(p.value)}</strong>`:''}).filter(Boolean);
+    placeChartTip(e.clientX,e.clientY,`<strong>Round ${num(round)}</strong>${rows.map(r=>`<span class="row">${r}</span>`).join('')}`);
+  });
+  canvas.addEventListener('pointerleave',()=>{if(chartHover.has(canvas.id)){chartHover.delete(canvas.id);const meta=chartMeta.get(canvas);meta?.redraw();}hideChartTip();});
+}
+function drawHistogram(canvas,balances,max){
+  const view=canvasContext(canvas);if(!view)return;const {ctx,w,h}=view,bins=Array(17).fill(0);
+  for(const v of balances)bins[v===0?0:Math.min(16,1+Math.floor(v/max*16))]++;
+  const height=h-15,step=w/17,highest=Math.max(...bins,1),hover=chartHover.get(canvas.id);
+  bins.forEach((n,i)=>{
+    ctx.fillStyle=i===0?'#c8cec0':`hsl(112, ${16+i}%, ${67-i*2.5}%)`;
+    const bh=n/highest*(height-3),bx=i*step+1,bw=Math.max(1,step-3);
+    ctx.globalAlpha=hover==null||hover===i?1:.35;ctx.fillRect(bx,height-bh,bw,bh);
+    if(hover===i){ctx.globalAlpha=1;ctx.strokeStyle='#335d48';ctx.lineWidth=1.5;ctx.strokeRect(bx+.5,height-bh+.5,bw-1,Math.max(0,bh-1));}
+  });
+  ctx.globalAlpha=1;ctx.strokeStyle='#dce0d3';ctx.beginPath();ctx.moveTo(0,height+.5);ctx.lineTo(w,height+.5);ctx.stroke();
+  ctx.fillStyle='#8b9482';ctx.font=`${Math.max(8,Math.min(10,w/65))}px Arial`;ctx.fillText('$0',0,h-1);ctx.textAlign='center';ctx.fillText(money(max/2),w/2,h-1);ctx.textAlign='right';ctx.fillText(money(max),w,h-1);ctx.textAlign='left';
+  chartMeta.set(canvas,{kind:'hist',bins,max,w,h,height,step,redraw:()=>drawHistogram(canvas,balances,max)});
+  bindChartHover(canvas);
+}
+function moodFor(wealth){return wealth===0?'crying':wealth>=smugThreshold?'smug':'neutral';}
+const MOOD_EMOJI={neutral:'😐',crying:'😢',smug:'😏'};
+function highlightMembers(balances,kind){
+  if(!kind)return null;
+  const n=balances.length, indexed=balances.map((v,i)=>({v,i})).sort((a,b)=>a.v-b.v||a.i-b.i);
+  if(kind==='zero')return new Set(indexed.filter(p=>p.v===0).map(p=>p.i));
+  if(kind==='median'){
+    if(n%2)return new Set([indexed[Math.floor(n/2)].i]);
+    return new Set([indexed[n/2-1].i,indexed[n/2].i]);
+  }
+  const k=Math.ceil(n*(kind==='top1'?.01:.1)), richest=indexed.slice(-k), cutoff=richest[0].v;
+  // If the k-th richest is broke, don't treat "$0" as the cutoff (that would light up everyone).
+  if(cutoff<=0)return new Set(richest.filter(p=>p.v>0).map(p=>p.i));
+  return new Set(indexed.filter(p=>p.v>=cutoff).map(p=>p.i));
+}
+function setHighlight(kind){
+  highlight=kind==null?null:highlight===kind?null:kind;
+  document.querySelectorAll('[data-highlight]').forEach(el=>{
+    const on=el.dataset.highlight===highlight;
+    el.classList.toggle('active',on);
+    el.setAttribute('aria-pressed',String(on));
+  });
+}
+function clearPin(){if(pinned===null)return;pinned=null;updatePerson();}
+function drawPerson(ctx,size,color,mood,time,index,animate){
+  const emoji=MOOD_EMOJI[mood]||MOOD_EMOJI.neutral;
+  const sway=animate?Math.sin(time/430+index*1.7)*size*.04:0;
+  const bob=animate?(mood==='crying'?Math.abs(Math.sin(time/520+index))*size*.04:mood==='smug'?Math.sin(time/680+index*.9)*size*.03:Math.sin(time/900+index)*size*.015):0;
+  ctx.save();
+  ctx.fillStyle=color;ctx.globalAlpha=.28;ctx.beginPath();ctx.ellipse(0,size*.08,size*.42,size*.38,0,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
+  ctx.translate(sway,-bob);
+  ctx.font=`${Math.max(10,size*.92)}px "Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif`;
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(emoji,0,0);
+  ctx.restore();
+}
+function drawCrowd(now){
+  const s=scenario();if(!s)return;const view=canvasContext($('crowd'));if(!view)return;const {ctx,w,h}=view,n=s.balances.length;
+  const cols=Math.ceil(Math.sqrt(n*w/h*.62)), rows=Math.ceil(n/cols),cw=w/cols,ch=h/rows;
+  const size=Math.min(ch*.72,cw*.53,35),phase=Math.min(1,(now-changeAt)/650),pulse=reduced.matches?0:Math.sin(phase*Math.PI);
+  crowdHit=Math.max(12,Math.min(cw,ch)*.42);
+  const marked=highlightMembers(s.balances,highlight);
+  positions=s.balances.map((_,i)=>({x:(i%cols+.5)*cw,y:(Math.floor(i/cols)+.51)*ch}));
+  s.balances.forEach((wealth,i)=>{
+    const p=positions[i],delta=changes[i]||0,dy=delta>0?-pulse*size*.16:delta<0?pulse*size*.1:0;
+    const ratio=wealth/displayed.settings.initial,light=wealth===0?77:Math.max(24,66-Math.log2(Math.max(.05,ratio)+.2)*17);
+    const color=wealth===0?'#c8cec1':`hsl(121, ${wealth===0?0:19}%, ${light}%)`;
+    const inGroup=!marked||marked.has(i);
+    ctx.save();ctx.translate(p.x,p.y+dy);ctx.globalAlpha=inGroup?1:.22;
+    if(pinned===i||(marked&&marked.has(i))){ctx.fillStyle=pinned===i?'#e8edda':'#dfe8c8';ctx.beginPath();ctx.ellipse(0,0,cw*.44,ch*.46,0,0,Math.PI*2);ctx.fill();}
+    ctx.fillStyle='#263c3210';ctx.beginPath();ctx.ellipse(0,size*.45,size*.34,size*.065,0,0,Math.PI*2);ctx.fill();
+    if(delta>0 && pulse>0 && n<=200 && inGroup){ctx.shadowColor='#bfce8e';ctx.shadowBlur=pulse*8;}
+    drawPerson(ctx,size,color,moodFor(wealth),now,i,!reduced.matches && live?.running);
+    ctx.shadowBlur=0;const bw=size*.53;ctx.fillStyle='#e1e5d8';ctx.fillRect(-bw/2,size*.56,bw,Math.max(1,size*.045));ctx.fillStyle=color;ctx.fillRect(-bw/2,size*.56,bw*Math.min(1,ratio/3),Math.max(1,size*.045));
+    if(delta && n<=120 && pulse>.12 && inGroup){ctx.globalAlpha=pulse*.8;ctx.fillStyle=delta>0?'#4a784b':'#b18262';ctx.font=`${Math.max(7,size*.24)}px Arial`;ctx.textAlign='center';ctx.fillText(`${delta>0?'+':'−'}${money(Math.abs(delta))}`,0,-size*.52-pulse*3);}
+    ctx.restore();
+  });
+  if(pinned!==null && pinned<n){
+    const portrait=canvasContext($('person-portrait'));
+    if(portrait){const {ctx:face,w:pw,h:ph}=portrait;face.translate(pw/2,ph*.54);drawPerson(face,Math.min(pw,ph)*.95,s.balances[pinned]===0?'#b6c0af':'#55794d',moodFor(s.balances[pinned]),now,pinned,!reduced.matches && live?.running);}
+  }
+  // Only display individual transfer arcs when this frame represents one actual round.
+  if(!reduced.matches && s.model==='transfer' && now-changeAt<650 && changes.filter(v=>v!==0).length && (speeds[+$('speed').value]<=20)){
+    const t=Math.min(1,(now-changeAt)/650);
+    for(const event of s.lastTransfers.slice(0,8)){
+      const a=positions[event.payer],b=positions[event.payee];ctx.globalAlpha=Math.sin(t*Math.PI)*.8;ctx.strokeStyle='#b6bd87';ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.quadraticCurveTo((a.x+b.x)/2,(a.y+b.y)/2-20,b.x,b.y);ctx.stroke();
+      const x=(1-t)*a.x+t*b.x,y=(1-t)*a.y+t*b.y-Math.sin(t*Math.PI)*12;ctx.fillStyle='#bda15c';ctx.beginPath();ctx.arc(x,y,2.5,0,Math.PI*2);ctx.fill();
+    }ctx.globalAlpha=1;
+  }
+}
+function lineChart(canvas,series,{max=1,limit=displayed?.settings.limit||10000,format=v=>pct(v),tipFormat=format}={}){
+  const view=canvasContext(canvas);if(!view)return;const {ctx,w,h}=view,padL=35,padB=20,padT=8,right=8;
+  const plotW=w-padL-right,plotH=h-padT-padB,hoverRound=chartHover.get(canvas.id);
+  const finite=series.flatMap(s=>s.points.map(p=>p.value)).filter(v=>v!=null&&Number.isFinite(v));
+  const chartMax=Math.max(max,...finite,1e-9);
+  ctx.font='9px Arial';ctx.fillStyle='#929989';ctx.strokeStyle='#e1e4d9';ctx.lineWidth=1;
+  for(let i=0;i<=2;i++){const y=padT+plotH*i/2;ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(w-right,y);ctx.stroke();ctx.fillText(format(chartMax*(1-i/2)),0,y+3);}
+  ctx.fillText('0',padL,h-3);ctx.textAlign='right';ctx.fillText(num(limit),w-right,h-3);ctx.textAlign='left';
+  if(hoverRound!=null){const hx=padL+hoverRound/Math.max(1,limit)*plotW;ctx.strokeStyle='#b7c09a';ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(hx,padT);ctx.lineTo(hx,h-padB);ctx.stroke();ctx.setLineDash([]);}
+  for(const s of series){
+    ctx.strokeStyle=s.color;ctx.lineWidth=s.dashed?1.4:1.8;ctx.setLineDash(s.dashed?[4,4]:[]);ctx.beginPath();let started=false;
+    for(const p of s.points){if(p.value===null){started=false;continue;}const x=padL+p.round/Math.max(1,limit)*plotW,y=padT+(1-p.value/chartMax)*plotH;if(started)ctx.lineTo(x,y);else ctx.moveTo(x,y);started=true;}
+    ctx.stroke();ctx.setLineDash([]);
+    if(hoverRound!=null && !s.dashed){const p=nearestPoint(s.points,hoverRound);if(p){const x=padL+p.round/Math.max(1,limit)*plotW,y=padT+(1-p.value/chartMax)*plotH;ctx.fillStyle=s.color;ctx.beginPath();ctx.arc(x,y,3.2,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fcfbf7';ctx.beginPath();ctx.arc(x,y,1.4,0,Math.PI*2);ctx.fill();}}
+  }
+  chartMeta.set(canvas,{kind:'line',series,max:chartMax,limit,format:tipFormat,padL,padB,padT,right,w,h,redraw:()=>lineChart(canvas,series,{max,limit,format,tipFormat})});
+  bindChartHover(canvas);
+}
+function shapeCaption(s){
+  const {zero,std,gini,mean,median,max}=s.metrics, start=displayed.settings.initial;
+  if(s.round===0 || (std<start*.05 && zero<0.02))return 'Still near the start: little spread yet.';
+  if(zero>=.45)return 'Spike at $0, long rich tail. Not a bell curve.';
+  if(s.model==='transfer' && gini>=.35)return 'Same total money, more concentrated.';
+  if(s.model==='independent' && zero<.15 && std>start*.25 && Math.abs(mean-start)<start*.35)return 'Spreading around the start: early random walk.';
+  if(median<=start*.35 && max>=start*2)return 'Many low or broke; a smaller rich tail.';
+  return 'Spread is growing from luck alone.';
+}
+function historyWithCurrent(s,key){const points=s.history.map(p=>({round:p.round,value:p[key]}));if(points.at(-1)?.round!==s.round)points.push({round:s.round,value:s.metrics[key]});return points;}
+$('comparison').innerHTML=SCENARIOS.map((s,i)=>`<article class="comparison-card" style="--scenario:${colors[i]}"><h3>${s.model==='transfer'?'Transfers':'Independent'}</h3><span class="sub">${s.recovery?'Recovery':'Bankruptcy'}</span><canvas id="mini-${s.id}" role="img" aria-label="${s.label}"></canvas><dl id="stats-${s.id}"></dl></article>`).join('');
+$('scenario-legend').innerHTML=SCENARIOS.map((s,i)=>`<span style="--scenario:${colors[i]}">${s.label}</span>`).join('')+`<span class="guide-legend">Fair walk √t</span>`;
+function idealWalkPoints(limit,stake,upTo){
+  const end=Math.max(0,Math.min(limit,upTo??limit)), step=Math.max(1,Math.ceil(limit/200)), points=[{round:0,value:0}];
+  for(let r=step;r<end;r+=step)points.push({round:r,value:stake*Math.sqrt(r)});
+  if(end>0)points.push({round:end,value:stake*Math.sqrt(end)});
+  return points;
+}
+function renderDetails(){
+  if(!displayed)return;
+  const s=scenario(), stake=displayed.settings.stake, limit=displayed.settings.limit, round=displayed.round;
+  for(const sc of displayed.scenarios){$('stats-'+sc.id).innerHTML=[['Total',money(sc.metrics.total)],['Mean',money(sc.metrics.mean)],['Median',money(sc.metrics.median)],['Std',money(sc.metrics.std)],['Gini',sc.metrics.gini===null?'-':sc.metrics.gini.toFixed(3)],['At $0',pct(sc.metrics.zero)],['Top 10%',pct(sc.metrics.top)],['Top 1%',pct(sc.metrics.top1)],['Solvent',num(sc.metrics.solvent)],['Round',num(sc.round)]].map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('');drawHistogram($('mini-'+sc.id),sc.balances,histMax());}
+  lineChart($('gini-chart'),displayed.scenarios.map((sc,i)=>({color:colors[i],label:sc.label,points:historyWithCurrent(sc,'gini')})),{format:v=>v.toFixed(2),tipFormat:v=>v===null?'-':Number(v).toFixed(3)});
+  lineChart($('zero-chart'),displayed.scenarios.map((sc,i)=>({color:colors[i],label:sc.label,points:historyWithCurrent(sc,'zero')})));
+  const stdSeries=displayed.scenarios.map((sc,i)=>({color:colors[i],label:sc.label,points:historyWithCurrent(sc,'std')}));
+  stdSeries.push({color:'#8a8374',label:'Fair walk √t',dashed:true,points:idealWalkPoints(limit,stake,round)});
+  lineChart($('std-chart'),stdSeries,{max:1,format:v=>money(v),tipFormat:v=>money(v)});
+  lineChart($('mean-chart'),displayed.scenarios.map((sc,i)=>({color:colors[i],label:sc.label,points:historyWithCurrent(sc,'mean')})),{max:displayed.settings.initial,format:v=>money(v),tipFormat:v=>money(v)});
+  if(s){drawHistogram($('dist-chart'),s.balances,histMax());$('dist-shape').textContent=s.label.toUpperCase();$('dist-caption').textContent=shapeCaption(s);}
+}
+function updatePerson(){
+  const s=scenario();const valid=pinned!==null && pinned<s.balances.length;
+  $('person-card').hidden=!valid;$('person-tip').hidden=!valid;
+  if(!valid)return;
+  const balance=s.balances[pinned];$('person-heading').textContent=`Person ${String(pinned+1).padStart(3,'0')} · ${money(balance)}`;
+  const mood=moodFor(balance),feeling=mood==='smug'?' · Feeling smug':mood==='crying'?' · Having a little cry':'';
+  $('person-tip').textContent=`#${pinned+1} · ${money(balance)}${feeling}`;
+  $('person-portrait').setAttribute('aria-label',mood==='smug'?'Smug emoji':mood==='crying'?'Sad emoji':'Neutral emoji');
+  $('person-summary').textContent=`Start ${money(displayed.settings.initial)} · ${s.label}${balance===0? (s.recovery?' · still in':' · bankrupt'):''}${feeling}`;
+  const points=[...s.personHistory];if(points.at(-1)?.round!==s.round)points.push({round:s.round,value:balance});
+  lineChart($('person-chart'),[{color:colors[SCENARIOS.findIndex(v=>v.id===s.id)],label:'Wealth',points}],{max:Math.max(displayed.settings.initial*1.2,...points.map(p=>p.value),1),format:v=>money(v)});
+}
+$('crowd').addEventListener('click',e=>{const box=$('crowd').getBoundingClientRect(),x=e.clientX-box.left,y=e.clientY-box.top;
+  let nearest=0,distance=Infinity;positions.forEach((p,i)=>{const d=(p.x-x)**2+(p.y-y)**2;if(d<distance){distance=d;nearest=i;}});
+  if(distance>crowdHit*crowdHit){clearPin();return;}
+  pinned=nearest;worker.postMessage({type:'pin',pin:pinned});updatePerson();
+});
+$('unpin').onclick=()=>clearPin();
+document.querySelectorAll('[data-highlight]').forEach(el=>{
+  const activate=()=>{setHighlight(el.dataset.highlight);};
+  el.addEventListener('click',activate);
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});
+});
+document.querySelectorAll('[data-model]').forEach(b=>b.onclick=()=>setSelected(`${b.dataset.model}-${scenario().recovery?'recovery':'permanent'}`));
+document.querySelectorAll('[data-recovery]').forEach(b=>b.onclick=()=>setSelected(`${scenario().model}-${b.dataset.recovery==='true'?'recovery':'permanent'}`));
+function formSettings(){
+  const f=new FormData($('settings'));
+  return validateSettings({population:+f.get('population'),initial:+f.get('initial'),stake:+f.get('stake'),limit:+f.get('limit'),seed:f.get('seed')});
+}
+function settingsChanged(settings){
+  if(!live?.settings)return true;
+  const cur=live.settings;
+  return cur.population!==settings.population||cur.initial!==settings.initial||cur.stake!==settings.stake||cur.limit!==settings.limit||String(cur.seed)!==String(settings.seed);
+}
+function formIsDirty(){
+  try{return settingsChanged(formSettings());}catch{return false;}
+}
+function updatePlayButton(){
+  const dirty=formIsDirty(), running=!!live?.running, done=!!live?.done;
+  $('play').classList.toggle('needs-restart', dirty);
+  if(running && dirty)$('play').textContent='▶ Restart';
+  else if(running)$('play').textContent='Ⅱ Pause';
+  else if(dirty)$('play').textContent='▶ Start new';
+  else if(done)$('play').textContent='▶ Run again';
+  else $('play').textContent='▶ Start';
+}
+function initFromForm(){
+  const settings=formSettings();
+  pinned=null;setHighlight(null);clearScrub();lastId='';setMessage('');
+  worker.postMessage({type:'init',settings});
+  return settings;
+}
+function startFromForm(){
+  try{
+    const settings=formSettings(), needsReset=!live||live.done||settingsChanged(settings);
+    clearScrub();
+    if(needsReset)initFromForm();
+    worker.postMessage({type:'play'});
+  }catch(error){setMessage(error.message);}
+}
+function toggle(){
+  if(!live){startFromForm();return;}
+  if(live.running && !formIsDirty()){worker.postMessage({type:'pause'});return;}
+  startFromForm();
+}
+$('play').onclick=toggle;
+$('step').onclick=()=>{try{clearScrub();if(!live||settingsChanged(formSettings())||live.done)initFromForm();worker.postMessage({type:'step'});}catch(error){setMessage(error.message);}};
+function reset(){try{initFromForm();}catch(error){setMessage(error.message);}}
+$('reset').onclick=reset;
+$('speed').oninput=()=>{const speed=speeds[+$('speed').value];$('speed-label').textContent=`${num(speed)} round${speed===1?'':'s'}/s`;worker.postMessage({type:'speed',speed});};
+$('scrub').oninput=()=>{if(!canScrub(live)||live.running)return;scrubIndex=+$('scrub').value;show(buildScrubState(live,scrubIndex),true);syncScrubber();};
+$('settings').oninput=()=>updatePlayButton();
+$('settings').onsubmit=e=>{e.preventDefault();toggle();};
+document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA','SELECT','BUTTON'].includes(document.activeElement.tagName))return;if(e.code==='Space'){e.preventDefault();toggle();}if(e.key.toLowerCase()==='r')reset();if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();$('speed').value=Math.max(0,Math.min(speeds.length-1,+$('speed').value+(e.key==='ArrowRight'?1:-1)));$('speed').dispatchEvent(new Event('input'));}});
+function animation(now){drawCrowd(now);requestAnimationFrame(animation);}
+requestAnimationFrame(animation);
+new ResizeObserver(()=>{if(displayed){drawHistogram($('histogram'),scenario().balances,histMax());renderDetails();updatePerson();}}).observe($('stage'));
+function csvCell(value){const s=value===null||value===undefined?'':String(value);return /[",\n\r]/.test(s)?`"${s.replaceAll('"','""')}"`:s;}
+let exportURL;
+function download(name,rows){
+  const csv=rows.map(row=>row.map(csvCell).join(',')).join('\r\n');
+  if(exportURL)URL.revokeObjectURL(exportURL);
+  exportURL=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  $('download-csv').href=exportURL;$('download-csv').download=name;
+  $('csv-preview').value=csv;$('export-description').textContent=`${num(rows.length-1)} data rows · ${name}`;
+  $('export-dialog').showModal();
+}
+function exportExperiment(state){
+  const keys=['total','mean','median','zero','solvent','variance','std','gini','top','top1','max'],rows=[['record_type','scenario','seed','population','starting_money','stake','round_limit','round','person_id','balance',...keys]];
+  for(const s of state.scenarios){const base=[s.id,state.settings.seed,state.settings.population,state.settings.initial,state.settings.stake,state.settings.limit];
+    s.balances.forEach((v,i)=>rows.push(['balance',...base,s.round,i+1,v,...keys.map(()=>'')]));
+    const history=[...s.history];if(history.at(-1)?.round!==s.round)history.push({round:s.round,...s.metrics});
+    for(const h of history)rows.push(['metrics',...base,h.round,'','',...keys.map(k=>h[k])]);
+  }download('who-gets-rich-experiment.csv',rows);
+}
+$('export').onclick=()=>{if(live)exportExperiment(live);};
+$('repeat').onclick=()=>{
+  if(batchWorker){batchWorker.terminate();batchWorker=null;$('repeat').textContent='Run 20 times ↗';$('batch-results').textContent='Cancelled.';return;}
+  if(!live)return;currentBatchSettings={...live.settings};batchData=null;$('batch-results').hidden=false;$('repeat').textContent='Cancel';
+  showProgress(0);batchWorker=createSimWorker();
+  batchWorker.onmessage=({data:m})=>{if(m.type==='progress')showProgress(m.completed);if(m.type==='batch'){batchData=m;batchWorker.terminate();batchWorker=null;$('repeat').textContent='Run 20 times ↗';renderBatch();}if(m.type==='error'){showBatchError(m.message);}};
+  batchWorker.onerror=()=>showBatchError('Repeat stopped. Try again.');
+  batchWorker.postMessage({type:'batch',settings:currentBatchSettings});
+};
+function showBatchError(message){batchWorker?.terminate();batchWorker=null;$('repeat').textContent='Run 20 times ↗';$('batch-results').textContent=message;}
+function showProgress(n){$('batch-results').innerHTML=`<h3>Running… ${n} / 20</h3><p>All four rules. You can keep exploring.</p><div class="progress-track"><span style="width:${n*5}%"></span></div>`;}
+function renderBatch(){
+  const format={median:money,mean:money,zero:pct,top:pct,top1:pct,std:money,gini:v=>v===null?'-':v.toFixed(3),total:money};
+  $('batch-results').innerHTML=`<h3>20-run summary</h3><p id="batch-settings"></p><table><thead><tr><th>Rule</th><th>Median</th><th>Mean</th><th>At $0</th><th>Top 10%</th><th>Top 1%</th><th>Std</th><th>Gini</th><th>Total</th></tr></thead><tbody>${batchData.summary.map(s=>`<tr><th>${SCENARIOS.find(v=>v.id===s.id).label}</th>${Object.entries(format).map(([key,fmt])=>{const m=s.metrics[key];return `<td>${fmt(m.median)}<small>${fmt(m.low)} - ${fmt(m.high)}</small>${m.count<20?`<small>${m.count}/20 defined</small>`:''}</td>`;}).join('')}</tr>`).join('')}</tbody></table><p>Median across runs; 10th-90th range below. Toy model only.</p><details><summary>Seeds</summary><p id="batch-seeds"></p></details><div class="batch-actions"><button id="export-batch" class="quiet">↓ Export 20 runs</button></div>`;
+  const s=batchData.settings;$('batch-settings').textContent=`${num(s.population)} people · ${money(s.initial)} start · ${money(s.stake)} stake · ${num(s.limit)} rounds`;
+  $('batch-seeds').textContent=batchData.runs.map(r=>r.seed).join(' · ');
+  $('export-batch').onclick=()=>{const keys=['total','mean','median','zero','solvent','variance','std','gini','top','top1','max'],rows=[['seed','scenario','population','starting_money','stake','round_limit',...keys]];for(const r of batchData.runs)for(const s of r.scenarios)rows.push([r.seed,s.id,batchData.settings.population,batchData.settings.initial,batchData.settings.stake,batchData.settings.limit,...keys.map(k=>s.metrics[k])]);download('who-gets-rich-20-runs.csv',rows);};
+}
+
+</script>
+</body>
+</html>
